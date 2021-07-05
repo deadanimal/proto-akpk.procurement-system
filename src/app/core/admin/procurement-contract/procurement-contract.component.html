@@ -1,0 +1,1103 @@
+<div class="header pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-dark d-inline-block mb-0">Contract</h6>
+
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-database text-dark"> </i>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)" class="text-dark"> Procurement </a>
+              </li>
+              <li aria-current="page" class="breadcrumb-item active">
+                Contract
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 col-xs-12">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Total Contract
+                  </h5>
+
+                  <span class="h1 font-weight-bold mb-0"> 414 </span>
+                </div>
+              </div>
+
+              <p class="mt-3 mb-0 text-sm text-center">
+                <span class="text-success mr-2 font-weight-bold">
+                  <i class="fa fa-arrow-up"> </i> 35.6%
+                </span>
+
+                <span class="text-nowrap"> since last month </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-xs-12">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Number of Active Contracts
+                  </h5>
+
+                  <span class="h1 font-weight-bold mb-0"> 102 </span>
+                </div>
+              </div>
+
+              <p class="mt-3 mb-0 text-sm text-center">
+                <span class="text-success mr-2 font-weight-bold">
+                  <i class="fa fa-arrow-up"> </i> 22.2%
+                </span>
+
+                <span class="text-nowrap"> since last month </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-xs-12">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Number of Terminated Contracts
+                  </h5>
+
+                  <span class="h1 font-weight-bold mb-0"> 209 </span>
+                </div>
+              </div>
+
+              <p class="mt-3 mb-0 text-sm text-center">
+                <span class="text-success mr-2 font-weight-bold">
+                  <i class="fa fa-arrow-up"> </i> 59.4%
+                </span>
+
+                <span class="text-nowrap"> since last month </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col"><h3 class="mb-0">Contract Lists</h3></div>
+            <div class="col-auto text-right">
+              <button
+                class="btn btn-default btn-sm"
+                (click)="openModal(modalContract, 'Add New')"
+              >
+                Add New
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-4 col-xs-12">
+              <div class="form-group">
+                <label class="form-control-label">Search through</label>
+                <select class="form-control">
+                  <option>Please Pick</option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="col-lg-8 text-right"
+              style="
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+              "
+            >
+              <button class="btn btn-info btn-sm">Search</button>
+              <button class="btn btn-secondary btn-sm" (click)="clickReset()">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="dataTables_wrapper py-4">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="datatable_length">
+                      <label>
+                        Show
+                        <select
+                          name="datatable_length"
+                          aria-controls="datatable"
+                          class="form-control"
+                          (change)="entriesChange($event)"
+                        >
+                          <option value="5" [selected]="entries == 5">5</option>
+                          <option value="10" [selected]="entries == 10">
+                            10
+                          </option>
+                          <option value="25" [selected]="entries == 25">
+                            25
+                          </option>
+                          <option value="50" [selected]="entries == 50">
+                            50
+                          </option>
+                          <option value="-1" [selected]="entries == -1">
+                            all
+                          </option>
+                        </select>
+                        records
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <div id="datatable_filter" class="dataTables_filter">
+                      <label>
+                        <input
+                          type="search"
+                          class="form-control"
+                          placeholder="Cari rekod"
+                          aria-controls="datatable"
+                          (keyup)="filterTable($event)"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <ngx-datatable
+                  class="bootstrap selection-cell"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [limit]="entries != -1 ? entries : undefined"
+                  [rows]="temp"
+                  [scrollbarH]="true"
+                  (activate)="onActivate($event)"
+                >
+                  <!-- <ngx-datatable-column>
+                        <ng-template ngx-datatable-header-template>
+                          <span>No</span>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                          {{ row.id + 1 }}
+                        </ng-template>
+                      </ngx-datatable-column> -->
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Contract ID</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.contractid }}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Title</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.contracttitle }}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Date</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.contractdate }}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Status</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <span [ngClass]="statusBadge(row.contractstatus)">{{
+                        row.contractstatus
+                      }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Action</span>
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template>
+                      <button
+                        class="btn btn-warning btn-sm"
+                        (click)="openModal(modalContract, 'Update')"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="btn btn-danger btn-sm"
+                        (click)="clickDelete()"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </ng-template>
+                  </ngx-datatable-column>
+                </ngx-datatable>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">
+                Supplier Performance A
+              </h5>
+
+              <span class="h2 font-weight-bold mb-0"> RM 130K </span>
+            </div>
+
+            <div class="col-auto">
+              <div
+                class="
+                  icon icon-shape
+                  bg-gradient-red
+                  text-white
+                  rounded-circle
+                  shadow
+                "
+              >
+                <i class="fas fa-user"> </i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-sm">
+            <span class="text-danger mr-2"
+              ><i class="fa fa-arrow-down"></i> 1.47%</span
+            >
+            <span class="text-nowrap">since last month</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">
+                Supplier Performance B
+              </h5>
+
+              <span class="h2 font-weight-bold mb-0"> RM 140K </span>
+            </div>
+
+            <div class="col-auto">
+              <div
+                class="
+                  icon icon-shape
+                  bg-gradient-orange
+                  text-white
+                  rounded-circle
+                  shadow
+                "
+              >
+                <i class="fas fa-user"> </i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-sm">
+            <span class="text-success mr-2"
+              ><i class="fa fa-arrow-up"></i> 11.8%</span
+            >
+            <span class="text-nowrap">since last year</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">
+                Supplier Performance C
+              </h5>
+
+              <span class="h2 font-weight-bold mb-0"> RM 190K </span>
+            </div>
+
+            <div class="col-auto">
+              <div
+                class="
+                  icon icon-shape
+                  bg-gradient-green
+                  text-white
+                  rounded-circle
+                  shadow
+                "
+              >
+                <i class="fas fa-user"> </i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-sm">
+            <span class="text-success mr-2"
+              ><i class="fa fa-arrow-up"></i> 15.4%</span
+            >
+            <span class="text-nowrap">since last month</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">
+                Supplier Performance D
+              </h5>
+
+              <span class="h2 font-weight-bold mb-0"> RM 93K </span>
+            </div>
+
+            <div class="col-auto">
+              <div
+                class="
+                  icon icon-shape
+                  bg-gradient-red
+                  text-white
+                  rounded-circle
+                  shadow
+                "
+              >
+                <i class="fas fa-user"> </i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-sm">
+            <span class="text-danger mr-2"
+              ><i class="fa fa-arrow-down"></i> 5.65%</span
+            >
+            <span class="text-nowrap">since last month</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">
+                Supplier Performance E
+              </h5>
+
+              <span class="h2 font-weight-bold mb-0"> RM 86K </span>
+            </div>
+
+            <div class="col-auto">
+              <div
+                class="
+                  icon icon-shape
+                  bg-gradient-orange
+                  text-white
+                  rounded-circle
+                  shadow
+                "
+              >
+                <i class="fas fa-user"> </i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-sm">
+            <span class="text-danger mr-2"
+              ><i class="fa fa-arrow-down"></i> 7.1%</span
+            >
+            <span class="text-nowrap">since last year</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">
+                Supplier Performance F
+              </h5>
+
+              <span class="h2 font-weight-bold mb-0"> RM 170K </span>
+            </div>
+
+            <div class="col-auto">
+              <div
+                class="
+                  icon icon-shape
+                  bg-gradient-green
+                  text-white
+                  rounded-circle
+                  shadow
+                "
+              >
+                <i class="fas fa-user"> </i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-sm">
+            <span class="text-success mr-2"
+              ><i class="fa fa-arrow-up"></i> 6.54%</span
+            >
+            <span class="text-nowrap">since last month</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Budget Application</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label>Supplier Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="e.g. Ah Chong Plantation Sdn Bhd"
+                />
+              </div>
+              <div class="form-group">
+                <label>Supplier Code</label><br />
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="e.g. A-93645"
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label>Upload Verification Document</label>
+                <div
+                  class="dropzone dropzone-single"
+                  data-toggle="dropzone"
+                  data-dropzone-url="http://"
+                >
+                  <div class="fallback">
+                    <div class="custom-file">
+                      <input
+                        type="file"
+                        class="custom-file-input"
+                        id="dropzoneBasicUpload"
+                      />
+                      <label class="custom-file-label" for="dropzoneBasicUpload"
+                        >Choose file</label
+                      >
+                    </div>
+                  </div>
+                  <div class="dz-preview dz-preview-single">
+                    <div class="dz-preview-cover">
+                      <img
+                        class="dz-preview-img"
+                        src="..."
+                        alt="..."
+                        data-dz-thumbnail=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Supply Period (Years)</label><br />
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="e.g. 9"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Type of Supply</label>
+            <textarea
+              rows="4"
+              class="form-control"
+              placeholder="e.g. Face Mask ..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>Supply Description</label>
+            <textarea rows="4" class="form-control"></textarea>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-success" (click)="clickSave1()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Procurement Application</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>Application Name</label>
+            <input type="text" class="form-control" placeholder="e.g. Ali" />
+          </div>
+          <div class="form-group">
+            <label>User ID</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="e.g. I-43765"
+            />
+          </div>
+          <div class="form-group">
+            <label>Purpose of Applying</label>
+            <textarea
+              rows="6"
+              class="form-control"
+              placeholder="e.g. To apply for an allocation fund amounting to RM....."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>Budget (RM)</label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="e.g. 20,000"
+            />
+          </div>
+          <div class="text-center">
+            <button class="btn btn-success" (click)="clickSave1()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">List of Procurement Applications</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  placeholder="Please do a search here"
+                />
+              </div>
+            </div>
+            <div class="col-2 p-1">
+              <button class="btn btn-success btn-sm">Search</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">No.</th>
+
+                  <th scope="col">Name of Applicant</th>
+
+                  <th scope="col">ID Permohonan</th>
+
+                  <th scope="col">Applicant ID</th>
+
+                  <th scope="col">Name of Officer</th>
+
+                  <th scope="col">Application Status</th>
+
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+
+              <tbody class="list">
+                <tr>
+                  <td>1</td>
+                  <td>Abu Bakar</td>
+                  <td>P-7645</td>
+                  <td>U-13</td>
+                  <td>Abang Burn</td>
+                  <td>
+                    <span class="badge badge-warning">In Review</span>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-success btn-sm"
+                      placement="top"
+                      ngbTooltip="Validation"
+                      (click)="validation()"
+                    >
+                      <i class="fas fa-file-signature"></i>
+                    </button>
+                    <button
+                      class="btn btn-warning btn-sm"
+                      placement="top"
+                      ngbTooltip="Send Email"
+                      (click)="email()"
+                    >
+                      <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <button
+                      class="btn btn-default btn-sm"
+                      placement="top"
+                      ngbTooltip="Print"
+                    >
+                      <i class="fas fa-print"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>2</td>
+                  <td>Umar Khattab</td>
+                  <td>P-6345</td>
+                  <td>U-15</td>
+                  <td>Wak Doyok</td>
+                  <td><span class="badge badge-success">Passed</span></td>
+                  <td>
+                    <button
+                      class="btn btn-success btn-sm"
+                      placement="top"
+                      ngbTooltip="Validation"
+                      (click)="validation()"
+                    >
+                      <i class="fas fa-file-signature"></i>
+                    </button>
+                    <button
+                      class="btn btn-warning btn-sm"
+                      placement="top"
+                      ngbTooltip="Send Email"
+                      (click)="email()"
+                    >
+                      <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <button
+                      class="btn btn-default btn-sm"
+                      placement="top"
+                      ngbTooltip="Print"
+                    >
+                      <i class="fas fa-print"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>3</td>
+                  <td>Uthman Affan</td>
+                  <td>P-5221</td>
+                  <td>U-16</td>
+                  <td>Aliff Syukri</td>
+                  <td><span class="badge badge-danger">Failed</span></td>
+                  <td>
+                    <button
+                      class="btn btn-success btn-sm"
+                      placement="top"
+                      ngbTooltip="Validation"
+                      (click)="validation()"
+                    >
+                      <i class="fas fa-file-signature"></i>
+                    </button>
+                    <button
+                      class="btn btn-warning btn-sm"
+                      placement="top"
+                      ngbTooltip="Send Email"
+                      (click)="email()"
+                    >
+                      <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <button
+                      class="btn btn-default btn-sm"
+                      placement="top"
+                      ngbTooltip="Print"
+                    >
+                      <i class="fas fa-print"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>4</td>
+                  <td>Ali Abi Talib</td>
+                  <td>P-4300</td>
+                  <td>U-19</td>
+                  <td>Baby Shima</td>
+                  <td><span class="badge badge-success">Passed</span></td>
+                  <td>
+                    <button
+                      class="btn btn-success btn-sm"
+                      placement="top"
+                      ngbTooltip="Validation"
+                      (click)="validation()"
+                    >
+                      <i class="fas fa-file-signature"></i>
+                    </button>
+                    <button
+                      class="btn btn-warning btn-sm"
+                      placement="top"
+                      ngbTooltip="Send Email"
+                      (click)="email()"
+                    >
+                      <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <button
+                      class="btn btn-default btn-sm"
+                      placement="top"
+                      ngbTooltip="Print"
+                    >
+                      <i class="fas fa-print"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Issuance of PO</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <input
+                  type="text" 
+                  class="form-control form-control-sm"
+                  placeholder="Please do a search here"
+                />
+              </div>
+            </div>
+            <div class="col-2 p-1">
+              <button class="btn btn-success btn-sm">Search</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">No.</th>
+
+                  <th scope="col">Document Name</th>
+
+                  <th scope="col">Document ID</th>
+
+                  <th scope="col">Purchase Category</th>
+
+                  <th scope="col">Application Status</th>
+
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+
+              <tbody class="list">
+                <tr>
+                  <td>1</td>
+                  <td>Document Validation PO Compony A</td>
+                  <td>D-473589</td>
+                  <td>Eco -friendly</td>
+                  <td>
+                    <span class="badge badge-warning">In Review</span>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-success btn-sm"
+                      placement="top"
+                      ngbTooltip="Kemaskini"
+                      (click)="openModal1(kemaskini)"
+                    >
+                      <i class="fas fa-file-signature"></i>
+                    </button>
+                    <button
+                      class="btn btn-default btn-sm"
+                      placement="top"
+                      ngbTooltip="Print"
+                    >
+                      <i class="fas fa-print"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>2</td>
+                  <td>Appointment of Officer PO Company B Document</td>
+                  <td>D-85674</td>
+                  <td>Eco -friendly</td>
+                  <td><span class="badge badge-success">Passed</span></td>
+                  <td>
+                    <button
+                      class="btn btn-success btn-sm"
+                      placement="top"
+                      ngbTooltip="Kemaskini"
+                      (click)="openModal1(kemaskini)"
+                    >
+                      <i class="fas fa-file-signature"></i>
+                    </button>
+                    <button
+                      class="btn btn-default btn-sm"
+                      placement="top"
+                      ngbTooltip="Print"
+                    >
+                      <i class="fas fa-print"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>3</td>
+                  <td>PO Proposal Submission Document Comapny C</td>
+                  <td>D-20947</td>
+                  <td>Not Environmentally Friendly</td>
+                  <td><span class="badge badge-danger">Failed</span></td>
+                  <td>
+                    <button
+                      class="btn btn-success btn-sm"
+                      placement="top"
+                      (click)="openModal1(kemaskini)"
+                    >
+                      <i class="fas fa-file-signature"></i>
+                    </button>
+                    <button
+                      class="btn btn-default btn-sm"
+                      placement="top"
+                      ngbTooltip="Print"
+                    >
+                      <i class="fas fa-print"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalContract>
+  <div class="modal-header bg-default">
+    <h4 class="modal-title pull-left text-white">{{ modalTitle }} Contract</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="closeModal()"
+    >
+      <span aria-hidden="true" class="text-white">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-6 col-xs-12">
+        <div class="form-group">
+          <label class="form-control-label">Contract ID</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="cth CON-240-abc"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Project</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. Public University Construction Project"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Data 3</label>
+          <input type="text" class="form-control" placeholder="" />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Data 5</label>
+          <input type="text" class="form-control" placeholder="" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-xs-12">
+        <div class="form-group">
+          <label class="form-control-label">Sub-Contract ID</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. SUB-645-abc"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Data 2</label>
+          <input type="text" class="form-control" placeholder="" />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Data 4</label>
+          <input type="text" class="form-control" placeholder="" />
+        </div>
+      </div>
+    </div>
+    <hr />
+    <h3>Contract Process</h3>
+    <div class="row">
+      <div class="col-lg-6 col-xs-12">
+        <div class="form-group">
+          <label class="form-control-label">Status</label><br />
+          <div class="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="radioAktif"
+              name="radioStatus"
+              class="custom-control-input"
+            />
+            <label class="custom-control-label" for="radioAktif">Active</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="radioTidakAktif"
+              name="radioStatus"
+              class="custom-control-input"
+            />
+            <label class="custom-control-label" for="radioTidakAktif"
+              >Not Active</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-xs-12">
+        <div class="form-group">
+          <label class="form-control-label">Note</label>
+          <textarea rows="5" class="form-control"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-sm" (click)="clickSave()">Save</button>
+    <button class="btn btn-secondary btn-sm" (click)="closeModal()">
+      Close
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #kemaskini>
+  <div class="modal-header bg-default">
+    <h4 class="modal-title pull-left text-white">
+      Update PO Withdrawal Information
+    </h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalKontrak1.hide()"
+    >
+      <span aria-hidden="true" class="text-white">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>Document Name</label>
+          <input type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Document ID</label>
+          <input type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Purchase Category</label><br />
+          <div class="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="kategoripembelian1"
+              class="custom-control-input"
+              name="kategoripembelian"
+            />
+            <label class="custom-control-label" for="kategoripembelian1"
+              >Eco -friendly</label
+            >
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="kategoripembelian2"
+              class="custom-control-input"
+              name="kategoripembelian"
+            />
+            <label class="custom-control-label" for="kategoripembelian2"
+              >Not Environmentally Friendly</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>Status Permohonan</label>
+          <select class="form-control">
+            <option>Please Pick</option>
+            <option>In Review</option>
+            <option>Passed</option>
+            <option>Failed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Upload Document</label>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" lang="en" />
+            <label class="custom-file-label">Select file</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-sm" (click)="clickSave2()">Save</button>
+    <button class="btn btn-secondary btn-sm" (click)="modalKontrak1.hide()">
+      Close
+    </button>
+  </div>
+</ng-template>

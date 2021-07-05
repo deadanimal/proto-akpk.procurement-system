@@ -1,0 +1,389 @@
+<div class="header pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-dark d-inline-block mb-0">Procurement</h6>
+
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-database text-dark"> </i>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)" class="text-dark"> Procurement </a>
+              </li>
+              <li aria-current="page" class="breadcrumb-item active">Procurement</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 col-xs-12">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Total Procurement
+                  </h5>
+
+                  <span class="h1 font-weight-bold mb-0"> RM 1,356,0798 </span>
+                </div>
+              </div>
+
+              <p class="mt-3 mb-0 text-sm text-center">
+                <span class="text-success mr-2 font-weight-bold">
+                  <i class="fa fa-arrow-up"> </i> 41.48%
+                </span>
+
+                <span class="text-nowrap"> since last month </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-xs-12">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Total Approved Procurement
+                  </h5>
+
+                  <span class="h1 font-weight-bold mb-0"> RM 956,967 </span>
+                </div>
+              </div>
+
+              <p class="mt-3 mb-0 text-sm text-center">
+                <span class="text-success mr-2 font-weight-bold">
+                  <i class="fa fa-arrow-up"> </i> 29.8%
+                </span>
+
+                <span class="text-nowrap"> since last month </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-xs-12">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Total Rejected Procurement
+                  </h5>
+
+                  <span class="h1 font-weight-bold mb-0"> RM 102,567 </span>
+                </div>
+              </div>
+
+              <p class="mt-3 mb-0 text-sm text-center">
+                <span class="text-danger mr-2 font-weight-bold">
+                  <i class="fa fa-arrow-down"> </i> 11.4%
+                </span>
+
+                <span class="text-nowrap"> since last month </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col"><h3 class="mb-0">Procurement Lists</h3></div>
+            <div class="col-auto text-right">
+              <button
+                class="btn btn-default btn-sm"
+                (click)="openModal(modalPerolehan, 'Add New')"
+              >
+                Add New
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-4 col-xs-12">
+              <div class="form-group">
+                <label class="form-control-label">Search through</label>
+                <select class="form-control form-control-sm">
+                  <option>Please Pick</option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="col-lg-8 text-right"
+              style="
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+              "
+            >
+              <button class="btn btn-info btn-sm">Search</button>
+              <button class="btn btn-secondary btn-sm" (click)="clickReset()">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="dataTables_wrapper py-4">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="datatable_length">
+                      <label>
+                        Show
+                        <select
+                          name="datatable_length"
+                          aria-controls="datatable"
+                          class="form-control form-control-sm"
+                          (change)="entriesChange($event)"
+                        >
+                          <option value="5" [selected]="entries == 5">5</option>
+                          <option value="10" [selected]="entries == 10">
+                            10
+                          </option>
+                          <option value="25" [selected]="entries == 25">
+                            25
+                          </option>
+                          <option value="50" [selected]="entries == 50">
+                            50
+                          </option>
+                          <option value="-1" [selected]="entries == -1">
+                            all
+                          </option>
+                        </select>
+                        records
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <div id="datatable_filter" class="dataTables_filter">
+                      <label>
+                        <input
+                          type="search"
+                          class="form-control form-control-sm"
+                          placeholder="Cari rekod"
+                          aria-controls="datatable"
+                          (keyup)="filterTable($event)"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <ngx-datatable
+                  class="bootstrap selection-cell"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [limit]="entries != -1 ? entries : undefined"
+                  [rows]="temp"
+                  [scrollbarH]="true"
+                  (activate)="onActivate($event)"
+                >
+                  <!-- <ngx-datatable-column>
+                        <ng-template ngx-datatable-header-template>
+                          <span>No</span>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                          {{ row.id + 1 }}
+                        </ng-template>
+                      </ngx-datatable-column> -->
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Procurement ID</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.procurementid }}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Title</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.procurementtitle }}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Date</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.procurementdate }}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Status</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <span [ngClass]="statusBadge(row.procurementstatus)">{{
+                        row.procurementstatus
+                      }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                      <span>Action</span>
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template>
+                      <button
+                        class="btn btn-warning btn-sm"
+                        (click)="openModal(modalPerolehan, 'Update')"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="btn btn-danger btn-sm"
+                        (click)="clickDelete()"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </ng-template>
+                  </ngx-datatable-column>
+                </ngx-datatable>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalPerolehan>
+  <div class="modal-header bg-default">
+    <h4 class="modal-title pull-left text-white">{{ modalTitle }} Procurement</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="closeModal()"
+    >
+      <span aria-hidden="true" class="text-white">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-6 col-xs-12">
+        <div class="form-group">
+          <label class="form-control-label">Procurement ID</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            placeholder="e.g. PRG-CS-240"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Data 1</label>
+          <input type="text" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Data 3</label>
+          <input type="text" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Data 5</label>
+          <input type="text" class="form-control form-control-sm" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-xs-12">
+        <div class="form-group">
+          <label class="form-control-label">Title</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            placeholder="e.g. Supply, Build, Maintain Leading Foundation ERP System"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Data 2</label>
+          <input type="text" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Data 4</label>
+          <input type="text" class="form-control form-control-sm" />
+        </div>
+      </div>
+    </div>
+    <hr />
+    <h3>Procurement Proses</h3>
+    <div class="row">
+      <div class="col-lg-6 col-xs-12">
+        <div class="form-group">
+          <label class="form-control-label">Status</label><br />
+          <div class="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="radioBaru"
+              name="radioStatus"
+              class="custom-control-input"
+            />
+            <label class="custom-control-label" for="radioBaru">New</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="radioAwarded"
+              name="radioStatus"
+              class="custom-control-input"
+            />
+            <label class="custom-control-label" for="radioAwarded"
+              >Awarded</label
+            >
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="radioTangguh"
+              name="radioStatus"
+              class="custom-control-input"
+            />
+            <label class="custom-control-label" for="radioTangguh"
+              >Postponed</label
+            >
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              id="Batal"
+              name="radioStatus"
+              class="custom-control-input"
+            />
+            <label class="custom-control-label" for="Batal">Cancel</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-xs-12">
+        <div class="form-group">
+          <label class="form-control-label">Note</label>
+          <textarea rows="5" class="form-control form-control-sm"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-sm" (click)="clickSave()">Save</button>
+    <button class="btn btn-secondary btn-sm" (click)="closeModal()">
+      Close
+    </button>
+  </div>
+</ng-template>
